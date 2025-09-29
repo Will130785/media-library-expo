@@ -18,7 +18,6 @@ const Register = () => {
   })
   const handleRegister = async () => {
     console.log(formValues)
-    const res = await register(formValues as unknown as IRegisterPayload)
     if (
       !formValues.firstname ||
       !formValues.lastname ||
@@ -28,6 +27,7 @@ const Register = () => {
     ) {
       return
     }
+    const res = await register(formValues as unknown as IRegisterPayload)
     if (!res) {
       return
     }
