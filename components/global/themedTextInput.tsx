@@ -14,7 +14,11 @@ const ThemedTextInput = ({
 }: ThemedTextInputProps) => {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text')
   return (
-    <TextInput style={[styles.inputBase, { color }, style]} {...otherProps} />
+    <TextInput
+      style={[styles.inputBase, { color }, style]}
+      {...otherProps}
+      autoCapitalize="none"
+    />
   )
 }
 
