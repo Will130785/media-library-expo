@@ -27,6 +27,7 @@ const AddMediaItem = () => {
       return
     }
     const res = await addMediaItem(formValues as unknown as IMediaPayloadData)
+    console.log(res)
     if (!res) {
       return
     }

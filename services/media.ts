@@ -1,9 +1,9 @@
 import { IMediaPayloadData } from '@/types/media'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { getTokenFromStorage } from '@/utils'
 const { EXPO_PUBLIC_API_URL } = process.env
 
 export const getMediaItem = async (id: string) => {
-  const token = await AsyncStorage.getItem('token')
+  const token = getTokenFromStorage()
   if (!token) {
     return null
   }
@@ -20,7 +20,7 @@ export const getMediaItem = async (id: string) => {
 }
 
 export const getAllMediaItems = async () => {
-  const token = await AsyncStorage.getItem('token')
+  const token = await getTokenFromStorage()
   if (!token) {
     return null
   }
@@ -37,7 +37,8 @@ export const getAllMediaItems = async () => {
 }
 
 export const addMediaItem = async (mediaDataPayload: IMediaPayloadData) => {
-  const token = await AsyncStorage.getItem('token')
+  const token = await getTokenFromStorage()
+  console.log(token)
   if (!token) {
     return null
   }
@@ -60,7 +61,7 @@ export const editMediaItem = async (
   id: string,
   mediaDataPayload: IMediaPayloadData
 ) => {
-  const token = await AsyncStorage.getItem('token')
+  const token = await getTokenFromStorage()
   if (!token) {
     return null
   }
@@ -80,7 +81,7 @@ export const editMediaItem = async (
 }
 
 export const deleteMediaItem = async (id: string) => {
-  const token = await AsyncStorage.getItem('token')
+  const token = await getTokenFromStorage()
   if (!token) {
     return null
   }
