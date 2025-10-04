@@ -9,6 +9,7 @@ export const useForm = <T>(defaultValues: T) => {
 
   return {
     formValues,
+    setFormValues,
     handleChange,
   }
 }

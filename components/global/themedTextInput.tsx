@@ -27,5 +27,9 @@ export default ThemedTextInput
 const styles = StyleSheet.create({
   inputBase: {
     padding: 20,
+    borderWidth: 1,
+    borderColor: '#a7a7a7ff',
+    borderRadius: 10,
+    marginVertical: 10,
   },
 })

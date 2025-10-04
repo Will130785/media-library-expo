@@ -1,6 +1,7 @@
 import ThemedText from '@/components/global/themedText'
 import ThemedView from '@/components/global/themedView'
 import { getAllMediaItems } from '@/services/media'
+import { Link } from 'expo-router'
 import { useEffect, useState } from 'react'
 
 const AllMedia = () => {
@@ -25,7 +26,14 @@ const AllMedia = () => {
       {mediaItems && mediaItems.length ? (
         mediaItems.map((mediaItem: any) => (
           <ThemedView key={mediaItem.id}>
-            <ThemedText>{mediaItem.title}</ThemedText>
+            <Link
+              href={{
+                pathname: '/(main)/view-media-item/[id]',
+                params: { id: mediaItem.id },
+              }}
+            >
+              <ThemedText>{mediaItem.title}</ThemedText>
+            </Link>
           </ThemedView>
         ))
       ) : (

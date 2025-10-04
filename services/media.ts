@@ -3,7 +3,7 @@ import { getTokenFromStorage } from '@/utils'
 const { EXPO_PUBLIC_API_URL } = process.env
 
 export const getMediaItem = async (id: string) => {
-  const token = getTokenFromStorage()
+  const token = await getTokenFromStorage()
   if (!token) {
     return null
   }

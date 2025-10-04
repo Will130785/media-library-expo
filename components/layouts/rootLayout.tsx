@@ -1,3 +1,4 @@
+import { colors } from '@/constants/theme'
 import AuthProvider from '@/context/authContext'
 import { useColorScheme } from '@/hooks/useColorScheme'
 import {
@@ -15,8 +16,17 @@ const RootLayout = () => {
     <AuthProvider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <SafeAreaProvider>
-          <SafeAreaView style={{ flex: 1 }}>
-            <Stack screenOptions={{ headerShown: false }} />
+          <SafeAreaView
+            style={{
+              flex: 1,
+              backgroundColor:
+                colorScheme === 'dark'
+                  ? colors.dark.background
+                  : colors.light.background,
+            }}
+            edges={['top', 'bottom', 'left', 'right']}
+          >
+            <Stack screenOptions={{ headerShown: false, animation: 'none' }} />
           </SafeAreaView>
         </SafeAreaProvider>
       </ThemeProvider>

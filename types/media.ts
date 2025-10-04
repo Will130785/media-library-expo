@@ -6,3 +6,7 @@ export interface IMediaPayloadData {
   imageurl: string
   notes: string
 }
+
+export interface IMediaItem extends IMediaPayloadData {
+  id: string
+}

@@ -18,7 +18,7 @@ const ThemedView = ({
     'background'
   )
 
-  return <View style={[{ backgroundColor }, style]} {...otherProps} />
+  return <View style={[{ backgroundColor, flex: 1 }, style]} {...otherProps} />
 }
 
 export default ThemedView
