@@ -1,4 +1,4 @@
-import Index from '@/components/screens/main'
+import Index from '@/components/screens/main/index'
 
 const IndexScreen = () => {
   return <Index />

@@ -1,10 +1,11 @@
 import ThemedButton from '@/components/global/themedButton'
+import ThemedScrollView from '@/components/global/themedScrollView'
 import ThemedText from '@/components/global/themedText'
 import ThemedTextInput from '@/components/global/themedTextInput'
-import ThemedView from '@/components/global/themedView'
 import { colors } from '@/constants/theme'
 import { useForm } from '@/hooks/useForm'
 import { addMediaItem } from '@/services/media'
+import { globalStyles } from '@/styles/globalStyles'
 import { IMediaPayloadData } from '@/types/media'
 
 const AddMediaItem = () => {
@@ -14,6 +15,13 @@ const AddMediaItem = () => {
     releasedate: '',
     barcode: '',
     imageurl: '',
+    artist: '',
+    director: '',
+    recordLabel: '',
+    filmStudio: '',
+    developer: '',
+    author: '',
+    format: '',
     notes: '',
   })
   const handleAddMediaItem = async () => {
@@ -34,12 +42,16 @@ const AddMediaItem = () => {
     console.log(res)
   }
   return (
-    <ThemedView
+    <ThemedScrollView
       lightColor={colors.light.background}
       darkColor={colors.dark.background}
     >
-      <ThemedText lightColor={colors.light.text} darkColor={colors.dark.text}>
-        Register User
+      <ThemedText
+        style={globalStyles.h1}
+        lightColor={colors.light.text}
+        darkColor={colors.dark.text}
+      >
+        Add Media Item
       </ThemedText>
       <ThemedTextInput
         placeholder="Title"
@@ -62,11 +74,44 @@ const AddMediaItem = () => {
         onChangeText={(e) => handleChange(e, 'imageurl')}
       />
       <ThemedTextInput
+        placeholder="Artist"
+        onChangeText={(e) => handleChange(e, 'artist')}
+      />
+      <ThemedTextInput
+        placeholder="Director"
+        onChangeText={(e) => handleChange(e, 'director')}
+      />
+      <ThemedTextInput
+        placeholder="Record Label"
+        onChangeText={(e) => handleChange(e, 'recordLabel')}
+      />
+      <ThemedTextInput
+        placeholder="Film Studio"
+        onChangeText={(e) => handleChange(e, 'filmStudio')}
+      />
+      <ThemedTextInput
+        placeholder="Developer"
+        onChangeText={(e) => handleChange(e, 'developer')}
+      />
+      <ThemedTextInput
+        placeholder="Author"
+        onChangeText={(e) => handleChange(e, 'author')}
+      />
+      <ThemedTextInput
+        placeholder="Format"
+        onChangeText={(e) => handleChange(e, 'format')}
+      />
+      <ThemedTextInput
         placeholder="Notes"
         onChangeText={(e) => handleChange(e, 'notes')}
       />
-      <ThemedButton title="Add Media Item" onPress={handleAddMediaItem} />
-    </ThemedView>
+      <ThemedButton
+        title="Add Media Item"
+        onPress={handleAddMediaItem}
+        lightColor={colors.dark.background}
+        darkColor={colors.light.background}
+      />
+    </ThemedScrollView>
   )
 }
 

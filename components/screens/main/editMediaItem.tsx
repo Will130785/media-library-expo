@@ -1,10 +1,11 @@
 import ThemedButton from '@/components/global/themedButton'
+import ThemedScrollView from '@/components/global/themedScrollView'
 import ThemedText from '@/components/global/themedText'
 import ThemedTextInput from '@/components/global/themedTextInput'
-import ThemedView from '@/components/global/themedView'
 import { colors } from '@/constants/theme'
 import { useForm } from '@/hooks/useForm'
 import { editMediaItem, getMediaItem } from '@/services/media'
+import { globalStyles } from '@/styles/globalStyles'
 import { IMediaPayloadData } from '@/types/media'
 import { useLocalSearchParams } from 'expo-router'
 import { useEffect } from 'react'
@@ -18,6 +19,13 @@ const EditMediaItem = () => {
       releasedate: '',
       barcode: '',
       imageurl: '',
+      artist: '',
+      director: '',
+      recordLabel: '',
+      filmStudio: '',
+      developer: '',
+      author: '',
+      format: '',
       notes: '',
     })
   const handleEditMediaItem = async () => {
@@ -59,11 +67,15 @@ const EditMediaItem = () => {
   }, [formValues])
 
   return (
-    <ThemedView
+    <ThemedScrollView
       lightColor={colors.light.background}
       darkColor={colors.dark.background}
     >
-      <ThemedText lightColor={colors.light.text} darkColor={colors.dark.text}>
+      <ThemedText
+        style={globalStyles.h1}
+        lightColor={colors.light.text}
+        darkColor={colors.dark.text}
+      >
         Edit Item
       </ThemedText>
       <ThemedTextInput
@@ -87,6 +99,41 @@ const EditMediaItem = () => {
         value={formValues.barcode}
       />
       <ThemedTextInput
+        placeholder="Artist"
+        onChangeText={(e) => handleChange(e, 'artist')}
+        value={formValues.artist}
+      />
+      <ThemedTextInput
+        placeholder="Director"
+        onChangeText={(e) => handleChange(e, 'director')}
+        value={formValues.director}
+      />
+      <ThemedTextInput
+        placeholder="Record Label"
+        onChangeText={(e) => handleChange(e, 'recordLabel')}
+        value={formValues.recordLabel}
+      />
+      <ThemedTextInput
+        placeholder="Film Studio"
+        onChangeText={(e) => handleChange(e, 'filmStudio')}
+        value={formValues.filmStudio}
+      />
+      <ThemedTextInput
+        placeholder="Developer"
+        onChangeText={(e) => handleChange(e, 'developer')}
+        value={formValues.developer}
+      />
+      <ThemedTextInput
+        placeholder="Author"
+        onChangeText={(e) => handleChange(e, 'author')}
+        value={formValues.author}
+      />
+      <ThemedTextInput
+        placeholder="Format"
+        onChangeText={(e) => handleChange(e, 'format')}
+        value={formValues.format}
+      />
+      <ThemedTextInput
         placeholder="Image URL"
         onChangeText={(e) => handleChange(e, 'imageurl')}
         value={formValues.imageurl}
@@ -96,8 +143,13 @@ const EditMediaItem = () => {
         onChangeText={(e) => handleChange(e, 'notes')}
         value={formValues.notes}
       />
-      <ThemedButton title="Edit Media Item" onPress={handleEditMediaItem} />
-    </ThemedView>
+      <ThemedButton
+        title="Edit Media Item"
+        onPress={handleEditMediaItem}
+        lightColor={colors.dark.background}
+        darkColor={colors.light.background}
+      />
+    </ThemedScrollView>
   )
 }
 

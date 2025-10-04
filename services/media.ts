@@ -19,16 +19,19 @@ export const getMediaItem = async (id: string) => {
   return parsedResponse
 }
 
-export const getAllMediaItems = async () => {
+export const getAllMediaItems = async (mediaType?: string) => {
   const token = await getTokenFromStorage()
   if (!token) {
     return null
   }
-  const response = await fetch(`${EXPO_PUBLIC_API_URL}/get-all-media-items`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  const response = await fetch(
+    `${EXPO_PUBLIC_API_URL}/get-all-media-items/${mediaType}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
   if (!response.ok) {
     throw new Error('Error fetching all media items')
   }
