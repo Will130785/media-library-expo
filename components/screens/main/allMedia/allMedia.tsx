@@ -2,6 +2,7 @@ import ThemedScrollView from '@/components/global/themedScrollView'
 import ThemedText from '@/components/global/themedText'
 import ThemedView from '@/components/global/themedView'
 import { getAllMediaItems } from '@/services/media'
+import { globalStyles } from '@/styles/globalStyles'
 import { IMediaItem } from '@/types/media'
 import { useLocalSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
@@ -26,7 +27,9 @@ const AllMedia = () => {
 
   return (
     <ThemedScrollView>
-      <ThemedText>Your Media Items</ThemedText>
+      <ThemedText style={globalStyles.h2}>
+        Your {mediaType === 'music' && 'Music'}
+      </ThemedText>
       {mediaItems && mediaItems.length ? (
         mediaItems.map((mediaItem: IMediaItem) => (
           <MediaItem
@@ -38,7 +41,9 @@ const AllMedia = () => {
         ))
       ) : (
         <ThemedView>
-          <ThemedText>You currently have no media items</ThemedText>
+          <ThemedText>
+            You currently have no {mediaType === 'music' && 'music'}
+          </ThemedText>
         </ThemedView>
       )}
     </ThemedScrollView>

@@ -1,3 +1,4 @@
+import SelectInput from '@/components/global/selectInput'
 import ThemedButton from '@/components/global/themedButton'
 import ThemedScrollView from '@/components/global/themedScrollView'
 import ThemedText from '@/components/global/themedText'
@@ -7,8 +8,22 @@ import { useForm } from '@/hooks/useForm'
 import { addMediaItem } from '@/services/media'
 import { globalStyles } from '@/styles/globalStyles'
 import { IMediaPayloadData } from '@/types/media'
+import { useRouter } from 'expo-router'
+import { useState } from 'react'
+
+const mediaTypeOptions = [
+  { label: 'Music', value: 'music' },
+  { label: 'Film', value: 'film' },
+  { label: 'Games', value: 'games' },
+  { label: 'Books', value: 'books' },
+  { label: 'TV', value: 'tv' },
+]
 
 const AddMediaItem = () => {
+  const router = useRouter()
+  const [selectedMediaType, setSelectedMediaType] = useState<string | null>(
+    null
+  )
   const { handleChange, formValues } = useForm<IMediaPayloadData>({
     title: '',
     mediatype: '',
@@ -25,7 +40,6 @@ const AddMediaItem = () => {
     notes: '',
   })
   const handleAddMediaItem = async () => {
-    console.log(formValues)
     if (
       !formValues.title ||
       !formValues.mediatype ||
@@ -35,11 +49,10 @@ const AddMediaItem = () => {
       return
     }
     const res = await addMediaItem(formValues as unknown as IMediaPayloadData)
-    console.log(res)
     if (!res) {
       return
     }
-    console.log(res)
+    return router.replace('/')
   }
   return (
     <ThemedScrollView
@@ -57,54 +70,75 @@ const AddMediaItem = () => {
         placeholder="Title"
         onChangeText={(e) => handleChange(e, 'title')}
       />
-      <ThemedTextInput
-        placeholder="Media Type"
-        onChangeText={(e) => handleChange(e, 'mediatype')}
+      <SelectInput
+        buttonTitle={selectedMediaType?.toUpperCase() ?? 'Select Media Type'}
+        options={mediaTypeOptions}
+        selectHandler={(e) => {
+          setSelectedMediaType(e)
+          handleChange(e, 'mediatype')
+        }}
       />
-      <ThemedTextInput
-        placeholder="Release Date"
-        onChangeText={(e) => handleChange(e, 'releasedate')}
-      />
-      <ThemedTextInput
-        placeholder="Barcode"
-        onChangeText={(e) => handleChange(e, 'barcode')}
-      />
-      <ThemedTextInput
-        placeholder="Image URL"
-        onChangeText={(e) => handleChange(e, 'imageurl')}
-      />
-      <ThemedTextInput
-        placeholder="Artist"
-        onChangeText={(e) => handleChange(e, 'artist')}
-      />
-      <ThemedTextInput
-        placeholder="Director"
-        onChangeText={(e) => handleChange(e, 'director')}
-      />
-      <ThemedTextInput
-        placeholder="Record Label"
-        onChangeText={(e) => handleChange(e, 'recordLabel')}
-      />
-      <ThemedTextInput
-        placeholder="Film Studio"
-        onChangeText={(e) => handleChange(e, 'filmStudio')}
-      />
-      <ThemedTextInput
-        placeholder="Developer"
-        onChangeText={(e) => handleChange(e, 'developer')}
-      />
-      <ThemedTextInput
-        placeholder="Author"
-        onChangeText={(e) => handleChange(e, 'author')}
-      />
-      <ThemedTextInput
-        placeholder="Format"
-        onChangeText={(e) => handleChange(e, 'format')}
-      />
-      <ThemedTextInput
-        placeholder="Notes"
-        onChangeText={(e) => handleChange(e, 'notes')}
-      />
+      {selectedMediaType && (
+        <>
+          <ThemedTextInput
+            placeholder="Year of Release"
+            onChangeText={(e) => handleChange(e, 'releasedate')}
+            maxLength={4}
+          />
+          <ThemedTextInput
+            placeholder="Barcode"
+            onChangeText={(e) => handleChange(e, 'barcode')}
+          />
+          <ThemedTextInput
+            placeholder="Image URL"
+            onChangeText={(e) => handleChange(e, 'imageurl')}
+          />
+          {selectedMediaType === 'music' && (
+            <ThemedTextInput
+              placeholder="Artist"
+              onChangeText={(e) => handleChange(e, 'artist')}
+            />
+          )}
+          {selectedMediaType === 'film' && (
+            <ThemedTextInput
+              placeholder="Director"
+              onChangeText={(e) => handleChange(e, 'director')}
+            />
+          )}
+          {selectedMediaType === 'music' && (
+            <ThemedTextInput
+              placeholder="Record Label"
+              onChangeText={(e) => handleChange(e, 'recordLabel')}
+            />
+          )}
+          {selectedMediaType === 'film' && (
+            <ThemedTextInput
+              placeholder="Film Studio"
+              onChangeText={(e) => handleChange(e, 'filmStudio')}
+            />
+          )}
+          {selectedMediaType === 'games' && (
+            <ThemedTextInput
+              placeholder="Developer"
+              onChangeText={(e) => handleChange(e, 'developer')}
+            />
+          )}
+          {selectedMediaType === 'books' && (
+            <ThemedTextInput
+              placeholder="Author"
+              onChangeText={(e) => handleChange(e, 'author')}
+            />
+          )}
+          <ThemedTextInput
+            placeholder="Format"
+            onChangeText={(e) => handleChange(e, 'format')}
+          />
+          <ThemedTextInput
+            placeholder="Notes"
+            onChangeText={(e) => handleChange(e, 'notes')}
+          />
+        </>
+      )}
       <ThemedButton
         title="Add Media Item"
         onPress={handleAddMediaItem}
